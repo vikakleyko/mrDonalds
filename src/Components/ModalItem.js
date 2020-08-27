@@ -28,18 +28,22 @@ const Banner = styled.div`
   background-image: url(${({ img }) => img});
   background-size: cover;
   background-position: center;
-  margin-bottom: 20px;
 `;
 
-const Header = styled.div`
+const Content = styled.section`
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 200px);
+`;
+
+const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  font-family: Pacifico;
-`;
-
-const HeaderItem = styled.span`
-  font-size: 30px;
-  padding: 0 37px;
+  font-family: "Pacifico", cursive;
+  font-size: 24px;
+  font-weight: 700;
 `;
 
 export const ModalItem = ({ openItem, setOpenItem }) => {
@@ -55,11 +59,13 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
     <Overlay id="overlay" onClick={closeModal}>
       <Modal>
         <Banner img={openItem.img} />
-        <Header>
-          <HeaderItem>{openItem.name}</HeaderItem>
-          <HeaderItem>{openItem.price}</HeaderItem>
-        </Header>
-        <AddButton />
+        <Content>
+          <HeaderContent>
+            <div>{openItem.name}</div>
+            <div>{openItem.price}</div>
+          </HeaderContent>
+          <AddButton>Add</AddButton>
+        </Content>
       </Modal>
     </Overlay>
   );

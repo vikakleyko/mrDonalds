@@ -1,17 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = styled.button`
-  position: absolute;
+export const AddButton = styled.button`
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  height: 65px;
+  font-size: inherit;
+  font-family: inherit;
   background-color: #299b01;
   color: white;
-  padding: 20px 80px;
-  border: none;
-  font-size: 21px;
+  border-color: transparent;
   outline: none;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 43px;
+  cursor: pointer;
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.3s;
+  &:hover {
+    background-color: #fff;
+    color: #299b01;
+    border-color: #299b01;
+  }
 `;
-
-export const AddButton = () => <Button>Add</Button>;
