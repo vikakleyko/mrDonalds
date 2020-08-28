@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import bannerImg from "../images/banner.png";
+import bannerImg from "../../images/banner.png";
 
 const BannerItem = styled.div`
   height: 200px;
