@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { AddButton } from "../Style/AddButton";
+import { CountItem } from "../Modal/CountItem";
+import { useCount } from "../Hooks/useCount";
+import { totalPriceItems } from "../functions/secondaryFunctions";
+import { toLocaleStr } from "../functions/secondaryFunctions";
 
 const Overlay = styled.div`
   position: fixed;
@@ -46,21 +50,30 @@ const HeaderContent = styled.div`
   font-weight: 700;
 `;
 
+const TotalPriceItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+  const counter = useCount();
+
   const closeModal = (e) => {
     if (e.target.id === "overlay") {
       setOpenItem(null);
     }
-  }
+  };
 
   const order = {
-    ...openItem
+    ...openItem,
+    count: counter.count,
   };
 
   const addToOrder = () => {
-      setOrders([...orders, order]);
-      setOpenItem(null);
-  }
+    setOrders([...orders, order]);
+    setOpenItem(null);
+  };
 
   return (
     <Overlay id="overlay" onClick={closeModal}>
@@ -71,6 +84,11 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             <div>{openItem.name}</div>
             <div>{openItem.price}</div>
           </HeaderContent>
+          <CountItem {...counter} />
+          <TotalPriceItem>
+            <span>Price:</span>
+            <span>{toLocaleStr(totalPriceItems(order))}</span>
+          </TotalPriceItem>
           <AddButton onClick={addToOrder}>Add</AddButton>
         </Content>
       </Modal>

@@ -1,4 +1,3 @@
-
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -51,6 +50,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   input, button {
-    font-family: inherit;
+    font: inherit;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+   input::-webkit-outer-spin-button,
+   input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 `;
