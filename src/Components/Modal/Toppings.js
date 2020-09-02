@@ -1,36 +1,19 @@
 import React from "react";
-import styled from "styled-components";
-
-const ToppingWrap = styled.div`
-  column-count: 2;
-  max-width: 500px;
-  margin: 0 auto;
-  column-gap: 15px;
-`;
-
-const ToppingLabel = styled.label`
-  cursor: pointer;
-  display: block;
-`;
-
-const ToppingCheckbox = styled.input`
-  cursor: pointer;
-  margin-right: 5px;
-`;
+import { Wrapper, Label, Check } from "../Style/ChoicesStyle";
 
 export function Toppings({ toppings, checkToppings }) {
   return (
     <>
       <h3>Addititonal</h3>
-      <ToppingWrap>
+      <Wrapper>
         {toppings.map((item, i) => (
-          <ToppingLabel key={i}>
-            <ToppingCheckbox type="checkbox"
+          <Label key={i}>
+            <Check type="checkbox"
             checked={item.cheked}
             onChange={() => checkToppings(i)} />{item.name}
-          </ToppingLabel>
+          </Label>
         ))}
-      </ToppingWrap>
+      </Wrapper>
     </>
   );
 }
