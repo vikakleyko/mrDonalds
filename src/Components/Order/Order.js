@@ -10,6 +10,7 @@ const OrderStyled = styled.section`
   display: flex;
   flex-direction: column;
   laft: 0;
+  width: 380px;
   top: 80px;
   min-width: 380px;
   height: calc(100% - 80px);
@@ -47,11 +48,15 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders }) => {
+export const Order = ({ orders, setOrders }) => {
 
   const total = orders.reduce((acc, order) => acc + totalPriceItems(order), 0);
 
   const totalCounter = orders.reduce((acc, order) => acc + order.count, 0);
+
+  const deleteItem = order => {
+    setOrders([...orders.filter(item => item !== order)]);
+  };
 
   return (
     <OrderStyled>
@@ -59,7 +64,7 @@ export const Order = ({ orders }) => {
       <OrderContent>
         {orders.length ? (
           <OrderList>
-            {orders.map( order => <OrderListItem key={order.id} order={order}/>)}
+            {orders.map( order => <OrderListItem deleteItem={deleteItem} key={order.id} order={order}/>)}
           </OrderList>
         ) : (
           <EmptyList>No orders</EmptyList>

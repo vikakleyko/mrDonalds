@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export const AddButton = styled.button`
@@ -19,5 +18,10 @@ export const AddButton = styled.button`
     background-color: #fff;
     color: #299b01;
     border-color: #299b01;
+  }
+  &:disabled {
+    background-color: #ccc;
+    color: #bbb;
+    border-color: #aaa;
   }
 `;
