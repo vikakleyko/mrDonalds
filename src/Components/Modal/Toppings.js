@@ -4,7 +4,7 @@ import { Wrapper, Label, Check } from "../Style/ChoicesStyle";
 export function Toppings({ toppings, checkToppings }) {
   return (
     <>
-      <h3>Addititonal</h3>
+      <h3>Add ons</h3>
       <Wrapper>
         {toppings.map((item, i) => (
           <Label key={i}>

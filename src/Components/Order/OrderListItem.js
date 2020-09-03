@@ -8,6 +8,7 @@ const OrderItemStyled = styled.li`
   display: flex;
   margin: 15px 0 0 0;
   flex-wrap: wrap;
+  cursor: pointer;
 `;
 
 const ItemName = styled.span`
@@ -39,19 +40,27 @@ const Toppings = styled.div`
   width: 100%;
 `;
 
-export const OrderListItem = ({ order, deleteItem }) => {
+export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
   const toppings = order.topping
     .filter((item) => item.checked)
     .map((item) => item.name)
     .join(", ");
 
+  const openModal = (e) => {
+    if (!e.target.type) {
+      setOpenItem({ ...order, index });
+    }
+  };
+
   return (
     <>
-      <OrderItemStyled>
-        <ItemName>{order.name} {order.choice}</ItemName>
+      <OrderItemStyled onClick={openModal}>
+        <ItemName>
+          {order.name} {order.choice}
+        </ItemName>
         <span>{order.count}</span>
         <ItemPrice>{toLocaleStr(totalPriceItems(order))}</ItemPrice>
-        <TrashButton onClick={() => deleteItem(order)}/>
+        <TrashButton onClick={() => deleteItem(index)} />
         {toppings && <Toppings>{toppings}</Toppings>}
       </OrderItemStyled>
     </>
