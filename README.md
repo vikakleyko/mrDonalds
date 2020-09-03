@@ -1,3 +1,11 @@
+## Status
+
+In progress
+
+## Description
+
+Food ordering application where you can select items from the menu, select different types of add-ons, and see your order in the sidebar as well as the total cost of your order. You can also change your order: remove an item or change add-ons.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
