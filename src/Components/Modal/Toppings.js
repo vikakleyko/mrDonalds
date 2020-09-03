@@ -9,7 +9,7 @@ export function Toppings({ toppings, checkToppings }) {
         {toppings.map((item, i) => (
           <Label key={i}>
             <Check type="checkbox"
-            checked={item.cheked}
+            checked={item.checked}
             onChange={() => checkToppings(i)} />{item.name}
           </Label>
         ))}
