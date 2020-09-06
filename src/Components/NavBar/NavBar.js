@@ -32,24 +32,6 @@ const ImgLogo = styled.img`
   width: 50px;
 `;
 
-// button style
-const Button = styled.button`
-  width: 90px;
-  padding: 6px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-  opacity: 0.8;
-  background-color: #fa8f02;
-  color: white;
-  transition: 0.2s;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
 const Login = styled.button`
   background-color: transparent;
   color: white;
@@ -65,15 +47,42 @@ const Login = styled.button`
   }
 `;
 
-export const NavBar = () => (
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+
+const Logout = styled.span`
+  font-size: 20px;
+  font-weight: 700px;
+  cursor: pointer;
+  margin-right: 30px;
+`;
+
+const Figure = styled.figure`
+  margin: 0 30px;
+`;
+
+export const NavBar = ({ authentication, logIn, logOut }) => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo" />
       <H1>MrDonald's</H1>
     </Logo>
-    <Login>
-      <img src={signinImg} alt="sign in"/>
-      <p>Sign in</p>
-    </Login>
+    {authentication ? 
+      (<User>
+        <Figure>
+          <img style={{width: '40px'}} src={signinImg} alt={authentication.displayName} />
+          <figcaption>{authentication.displayName}</figcaption>
+        </Figure>
+        <Logout title="Logout" onClick={logOut}>X</Logout>
+      </User>) : 
+      (<Login onClick={logIn}>
+        <Figure>
+          <img src={signinImg} alt="sign in" />
+          <figcaption>Sign in</figcaption>
+        </Figure>
+      </Login>)}
   </NavBarStyled>
 );

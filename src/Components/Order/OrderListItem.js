@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import trashImage from "../../images/trash.svg";
 import { totalPriceItems } from "../functions/secondaryFunctions";
@@ -46,21 +46,17 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
     .map((item) => item.name)
     .join(", ");
 
-  const openModal = (e) => {
-    if (!e.target.type) {
-      setOpenItem({ ...order, index });
-    }
-  };
+  const refDeleteButton = useRef(null);
 
   return (
     <>
-      <OrderItemStyled onClick={openModal}>
+      <OrderItemStyled onClick={(e) => e.target !== refDeleteButton.current && setOpenItem({ ...order, index })}>
         <ItemName>
           {order.name} {order.choice}
         </ItemName>
         <span>{order.count}</span>
         <ItemPrice>{toLocaleStr(totalPriceItems(order))}</ItemPrice>
-        <TrashButton onClick={() => deleteItem(index)} />
+        <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)} />
         {toppings && <Toppings>{toppings}</Toppings>}
       </OrderItemStyled>
     </>

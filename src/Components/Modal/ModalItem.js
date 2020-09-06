@@ -60,10 +60,10 @@ const TotalPriceItem = styled.div`
 `;
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
-  const isEdit = openItem.index > -1;
-  const counter = useCount(openItem, isEdit);
+  const counter = useCount(openItem.count);
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
+  const isEdit = openItem.index > -1;
 
   const closeModal = (e) => {
     if (e.target.id === "overlay") {

@@ -9,7 +9,7 @@ const OrderStyled = styled.section`
   position: fixed;
   display: flex;
   flex-direction: column;
-  laft: 0;
+  left: 0;
   width: 380px;
   top: 80px;
   min-width: 380px;
@@ -48,7 +48,7 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+export const Order = ({ orders, setOrders, setOpenItem,  authentication, logIn }) => {
   const total = orders.reduce((acc, order) => acc + totalPriceItems(order), 0);
 
   const totalCounter = orders.reduce((acc, order) => acc + order.count, 0);
@@ -84,7 +84,7 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
         <span>{totalCounter}</span>
         <TotalPrice>{toLocaleStr(total)}</TotalPrice>
       </Total>
-      <AddButton>Checkout order</AddButton>
+      <AddButton onClick={authentication ? console.log(orders) : logIn}>Checkout order</AddButton>
     </OrderStyled>
   );
 };
