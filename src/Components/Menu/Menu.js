@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import dbMenu from "../DBMenu";
+import styled, { keyframes } from "styled-components";
 import { ListItem } from "./ListItem";
 import { Banner } from "./Banner";
+import { useFetch } from "../Hooks/useFetch";
 
 const MenuStyled = styled.main`
   background-color: #ccc;
@@ -11,25 +11,71 @@ const MenuStyled = styled.main`
 `;
 
 const SectionMenu = styled.section`
-    padding: 30px;
+  padding: 30px;
 `;
 
-export const Menu = ({ setOpenItem }) => (
-  <MenuStyled>
-    <Banner />
-    <SectionMenu>
-      <h2>Burgers</h2>
-      <ListItem
-      setOpenItem={setOpenItem}
-      itemList={dbMenu.burger}
-      />
-    </SectionMenu>
-    <SectionMenu>
-      <h2>Snacks & Drinks</h2>
-      <ListItem
-      setOpenItem={setOpenItem}
-      itemList={dbMenu.other}
-      />
-    </SectionMenu>
-  </MenuStyled>
-);
+const spin = keyframes`
+  0% {
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
+`;
+
+const Loader = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100% !important;
+  height: 100% !important;
+`;
+
+const LoaderContainer = styled.div`
+  position: relative;
+  padding-top: 50%;
+  background: #f0f0f0;
+  &::before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border: 5px solid red;
+    border-color: transparent grey transparent grey;
+    border-radius: 50%;
+    animation: ${spin} 2s linear infinite;
+  }
+`;
+
+export const Menu = ({ setOpenItem }) => {
+  const res = useFetch();
+  const dbMenu = res.response;
+
+  return (
+    <MenuStyled>
+      <Banner />
+      {res.response ? (
+        <>
+          <SectionMenu>
+            <h2>Burgers</h2>
+            <ListItem setOpenItem={setOpenItem} itemList={dbMenu.burger} />
+          </SectionMenu>
+          <SectionMenu>
+            <h2>Snacks & Drinks</h2>
+            <ListItem setOpenItem={setOpenItem} itemList={dbMenu.other} />
+          </SectionMenu>
+        </>
+      ) : res.error ? (
+        <div>Some problem occured</div>
+      ) : (
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer>
+      )}
+    </MenuStyled>
+  );
+};
