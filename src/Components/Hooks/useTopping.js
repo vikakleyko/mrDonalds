@@ -16,7 +16,6 @@ export function useToppings(openItem) {
   // const readyTopping = openItem.toppings && getTopping(openItem.toppings) || [];
 
   const [toppings, setToppings] = useState(readyTopping);
-  console.log(toppings);
 
   const checkToppings = (index) => {
     setToppings(
