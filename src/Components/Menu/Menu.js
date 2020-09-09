@@ -2,7 +2,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { ListItem } from "./ListItem";
 import { Banner } from "./Banner";
-import { useFetch } from "../Hooks/useFetch";
 
 const MenuStyled = styled.main`
   background-color: #ccc;
@@ -51,14 +50,12 @@ const LoaderContainer = styled.div`
   }
 `;
 
-export const Menu = ({ setOpenItem }) => {
-  const res = useFetch();
-  const dbMenu = res.response;
+export const Menu = ({ setOpenItem, dbMenu }) => {
 
   return (
     <MenuStyled>
       <Banner />
-      {res.response ? (
+      {dbMenu ? (
         <>
           <SectionMenu>
             <h2>Burgers</h2>
@@ -69,8 +66,6 @@ export const Menu = ({ setOpenItem }) => {
             <ListItem setOpenItem={setOpenItem} itemList={dbMenu.other} />
           </SectionMenu>
         </>
-      ) : res.error ? (
-        <div>Some problem occured</div>
       ) : (
         <LoaderContainer>
           <Loader />

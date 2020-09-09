@@ -14,9 +14,7 @@ export const useFetch = () => {
         setError(err);
       }
     };
-    setTimeout(() => {
-      fetchData();
-    }, 500);
+    fetchData();
   }, []);
   return { response, error };
 };
