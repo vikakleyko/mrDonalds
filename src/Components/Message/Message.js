@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 export const Message = () => {
     return (
     <Wrapper id="message">
-        Thanks for yor order!
+        Thanks for your order!
     </Wrapper>
     )
 }
