@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { Context, ContextItem } from "../functions/context";
 import { AddButton } from "../Style/AddButton";
 import { CountItem } from "../Modal/CountItem";
 import { useCount } from "../Hooks/useCount";
@@ -9,19 +10,7 @@ import { Toppings } from "./Toppings";
 import { Choices } from "./Choices";
 import { useToppings } from "../Hooks/useTopping";
 import { useChoices } from "../Hooks/useChoices";
-
-const Overlay = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20;
-`;
+import { Overlay } from "../Style/OrderStyle";
 
 const Modal = styled.div`
   background-color: white;
@@ -59,7 +48,14 @@ const TotalPriceItem = styled.div`
   justify-content: space-between;
 `;
 
-export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+export const ModalItem = () => {
+  const {
+    openItem: { openItem, setOpenItem },
+  } = useContext(Context);
+  const {
+    orders: { orders, setOrders },
+  } = useContext(Context);
+
   const counter = useCount(openItem.count);
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
@@ -91,29 +87,37 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   };
 
   return (
-    <Overlay id="overlay" onClick={closeModal}>
-      <Modal>
-        <Banner img={openItem.img} />
-        <Content>
-          <HeaderContent>
-            <div>{openItem.name}</div>
-            <div>{toLocaleStr(openItem.price)}</div>
-          </HeaderContent>
-          <CountItem {...counter} />
-          {openItem.toppings && <Toppings {...toppings} />}
-          {openItem.choices && <Choices {...choices} openItem={openItem} />}
-          <TotalPriceItem>
-            <span>Price:</span>
-            <span>{toLocaleStr(totalPriceItems(order))}</span>
-          </TotalPriceItem>
-          <AddButton
-            disabled={order.choices && !order.choice}
-            onClick={isEdit ? editOrder : addToOrder}
-          >
-            {isEdit ? "Edit" : "Add"}
-          </AddButton>
-        </Content>
-      </Modal>
-    </Overlay>
+    <ContextItem.Provider
+      value={{
+        counter,
+        toppings,
+        choices
+      }}
+    >
+      <Overlay id="overlay" onClick={closeModal}>
+        <Modal>
+          <Banner img={openItem.img} />
+          <Content>
+            <HeaderContent>
+              <div>{openItem.name}</div>
+              <div>{toLocaleStr(openItem.price)}</div>
+            </HeaderContent>
+            <CountItem />
+            {openItem.toppings && <Toppings />}
+            {openItem.choices && <Choices openItem={openItem} />}
+            <TotalPriceItem>
+              <span>Price:</span>
+              <span>{toLocaleStr(totalPriceItems(order))}</span>
+            </TotalPriceItem>
+            <AddButton
+              disabled={order.choices && !order.choice}
+              onClick={isEdit ? editOrder : addToOrder}
+            >
+              {isEdit ? "Edit" : "Add"}
+            </AddButton>
+          </Content>
+        </Modal>
+      </Overlay>
+    </ContextItem.Provider>
   );
 };

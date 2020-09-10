@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import logoImg from "../../images/logo.svg";
 import signinImg from "../../images/sign.svg";
+import { Context } from "../functions/context"; 
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -64,8 +65,10 @@ const Figure = styled.figure`
   margin: 0 30px;
 `;
 
-export const NavBar = ({ authentication, logIn, logOut }) => (
-  <NavBarStyled>
+export const NavBar = () => {
+  const { auth: { authentication, logIn, logOut }} = useContext(Context);
+  return (
+    <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo" />
       <H1>MrDonald's</H1>
@@ -85,4 +88,5 @@ export const NavBar = ({ authentication, logIn, logOut }) => (
         </Figure>
       </Login>)}
   </NavBarStyled>
-);
+  )
+}

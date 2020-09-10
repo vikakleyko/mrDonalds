@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import { ListItem } from "./ListItem";
 import { Banner } from "./Banner";
+import { Context } from "../functions/context"; 
 
 const MenuStyled = styled.main`
   background-color: #ccc;
@@ -50,8 +51,8 @@ const LoaderContainer = styled.div`
   }
 `;
 
-export const Menu = ({ setOpenItem, dbMenu }) => {
-
+export const Menu = ({ dbMenu }) => {
+  const { openItem: { setOpenItem } } = useContext(Context);
   return (
     <MenuStyled>
       <Banner />
