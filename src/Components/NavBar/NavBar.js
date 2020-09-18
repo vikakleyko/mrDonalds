@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import logoImg from "../../images/logo.svg";
 import signinImg from "../../images/sign.svg";
-import { Context } from "../functions/context"; 
+import { Context } from "../functions/context";
+import { device } from "../Style/ResponsiveStyle";
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -59,34 +60,56 @@ const Logout = styled.span`
   font-weight: 700px;
   cursor: pointer;
   margin-right: 30px;
+  @media ${device.mobile} {
+    margin-right: 10px;
+  }
 `;
 
 const Figure = styled.figure`
   margin: 0 30px;
+  @media ${device.mobile} {
+    margin: 0 10px;
+  }
+`;
+
+const Figcaption = styled.figcaption`
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
 `;
 
 export const NavBar = () => {
-  const { auth: { authentication, logIn, logOut }} = useContext(Context);
+  const {
+    auth: { authentication, logIn, logOut },
+  } = useContext(Context);
   return (
     <NavBarStyled>
-    <Logo>
-      <ImgLogo src={logoImg} alt="logo" />
-      <H1>MrDonald's</H1>
-    </Logo>
-    {authentication ? 
-      (<User>
-        <Figure>
-          <img style={{width: '40px'}} src={signinImg} alt={authentication.displayName} />
-          <figcaption>{authentication.displayName}</figcaption>
-        </Figure>
-        <Logout title="Logout" onClick={logOut}>X</Logout>
-      </User>) : 
-      (<Login onClick={logIn}>
-        <Figure>
-          <img src={signinImg} alt="sign in" />
-          <figcaption>Sign in</figcaption>
-        </Figure>
-      </Login>)}
-  </NavBarStyled>
-  )
-}
+      <Logo>
+        <ImgLogo src={logoImg} alt="logo" />
+        <H1>MrDonald's</H1>
+      </Logo>
+      {authentication ? (
+        <User>
+          <Figure>
+            <img
+              style={{ width: "35px" }}
+              src={signinImg}
+              alt={authentication.displayName}
+            />
+            <Figcaption>{authentication.displayName}</Figcaption>
+          </Figure>
+          <Logout title="Logout" onClick={logOut}>
+            X
+          </Logout>
+        </User>
+      ) : (
+        <Login onClick={logIn}>
+          <Figure>
+            <img src={signinImg} alt="sign in" />
+            <figcaption>Sign in</figcaption>
+          </Figure>
+        </Login>
+      )}
+    </NavBarStyled>
+  );
+};

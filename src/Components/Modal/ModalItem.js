@@ -51,8 +51,6 @@ const TotalPriceItem = styled.div`
 export const ModalItem = () => {
   const {
     openItem: { openItem, setOpenItem },
-  } = useContext(Context);
-  const {
     orders: { orders, setOrders },
   } = useContext(Context);
 
@@ -91,7 +89,7 @@ export const ModalItem = () => {
       value={{
         counter,
         toppings,
-        choices
+        choices,
       }}
     >
       <Overlay id="overlay" onClick={closeModal}>

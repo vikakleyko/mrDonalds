@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
     background-color: white;
-    border: 1px solid grey;
-    color: grey;
-    position: absolute;
+    color: black;
+    border: 1px solid black;
+    position: fixed;
     top: 30px;
     right: 30px;
     z-index: 1000;
-    padding: 20px 40px;
+    padding: 20px 30px;
     border-radius: 8px;
     display: none;
 `;

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { Context } from "../functions/context";
 import { toLocaleStr } from "../functions/secondaryFunctions";
+import { device } from "../Style/ResponsiveStyle";
 
 const List = styled.ul`
   display: flex;
@@ -39,17 +41,24 @@ const Item = styled.li`
       opacity: 0;
     }
   }
+  @media ${device.mobile} {
+    margin: 15px auto;
+  }
 `;
 
-export const ListItem = ({ itemList, setOpenItem }) => (
-  <List>
-    {itemList.map((item) => (
-      <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>
-        <p>{item.name}</p>
-        <p>
-          {toLocaleStr(item.price)}
-        </p>
-      </Item>
-    ))}
-  </List>
-);
+export const ListItem = ({ itemList }) => {
+  const {
+    openItem: { setOpenItem },
+  } = useContext(Context);
+
+  return (
+    <List>
+      {itemList.map((item) => (
+        <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>
+          <p>{item.name}</p>
+          <p>{toLocaleStr(item.price)}</p>
+        </Item>
+      ))}
+    </List>
+  );
+};

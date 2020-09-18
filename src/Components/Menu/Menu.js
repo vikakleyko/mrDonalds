@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import { ListItem } from "./ListItem";
 import { Banner } from "./Banner";
-import { Context } from "../functions/context"; 
+import { device } from "../Style/ResponsiveStyle";
 
 const MenuStyled = styled.main`
   background-color: #ccc;
   margin-top: 80px;
   margin-left: 380px;
+
+  @media ${device.mobile} {
+    margin-left: 0px;
+  }
 `;
 
 const SectionMenu = styled.section`
@@ -52,21 +56,20 @@ const LoaderContainer = styled.div`
 `;
 
 export const Menu = ({ dbMenu }) => {
-  const { openItem: { setOpenItem } } = useContext(Context);
   return (
     <MenuStyled>
       <Banner />
       {dbMenu ? (
-        <>
+        <div id="menu">
           <SectionMenu>
             <h2>Burgers</h2>
-            <ListItem setOpenItem={setOpenItem} itemList={dbMenu.burger} />
+            <ListItem itemList={dbMenu.burger} />
           </SectionMenu>
           <SectionMenu>
             <h2>Snacks & Drinks</h2>
-            <ListItem setOpenItem={setOpenItem} itemList={dbMenu.other} />
+            <ListItem itemList={dbMenu.other} />
           </SectionMenu>
-        </>
+        </div>
       ) : (
         <LoaderContainer>
           <Loader />

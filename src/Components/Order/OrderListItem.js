@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import styled from "styled-components";
+import { Context } from "../functions/context";
 import trashImage from "../../images/trash.svg";
 import { totalPriceItems } from "../functions/secondaryFunctions";
 import { toLocaleStr } from "../functions/secondaryFunctions";
@@ -40,7 +41,10 @@ const Toppings = styled.div`
   width: 100%;
 `;
 
-export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
+
+  const { openItem: { setOpenItem } } = useContext(Context);
+
   const toppings = order.topping
     .filter((item) => item.checked)
     .map((item) => item.name)

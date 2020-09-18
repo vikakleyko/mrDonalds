@@ -39,15 +39,12 @@ const sendOrder = (database, orders, authentication) => {
   });
 };
 
-export const OrderConfirm = ({ database }) => {
+export const OrderConfirm = () => {
   const {
     orders: { orders, setOrders },
-  } = useContext(Context);
-  const {
-    auth: { authentication },
-  } = useContext(Context);
-  const {
     orderConfirm: { setOrderOpenConfirm },
+    auth: { authentication },
+    database,
   } = useContext(Context);
 
   const total = orders.reduce((acc, order) => acc + totalPriceItems(order), 0);

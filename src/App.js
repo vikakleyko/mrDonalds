@@ -8,6 +8,7 @@ import { GlobalStyle } from "./Components/Style/GlobalStyle";
 import { ModalItem } from "./Components/Modal/ModalItem";
 import { Order } from "./Components/Order/Order";
 import { useOpenItem } from "./Components/Hooks/useOpenItem";
+import { useOpenOrderList } from "./Components/Hooks/useOpenOrderList";
 import { useOrders } from "./Components/Hooks/useOrders";
 import { useTitle } from "./Components/Hooks/useTitle";
 import { useAuth } from "./Components/Hooks/useAuth";
@@ -33,6 +34,7 @@ function App() {
   const authFirebase = firebase.auth;
   const auth = useAuth(authFirebase);
   const openItem = useOpenItem();
+  const openOrderList = useOpenOrderList();
   const orders = useOrders();
   const orderConfirm = useOrderConfirm();
   const database = firebase.database();
@@ -46,6 +48,8 @@ function App() {
         openItem,
         orders,
         orderConfirm,
+        openOrderList,
+        database: database,
       }}
     >
       <GlobalStyle />
@@ -54,7 +58,7 @@ function App() {
       <Order />
       <Menu dbMenu={dbMenu} />
       {openItem.openItem && <ModalItem />}
-      {orderConfirm.orderOpenConfirm && <OrderConfirm database={database} />}
+      {orderConfirm.orderOpenConfirm && <OrderConfirm />}
     </Context.Provider>
   );
 }

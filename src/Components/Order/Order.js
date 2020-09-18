@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Context } from "../functions/context"; 
+import { Context } from "../functions/context";
 import { AddButton } from "../Style/AddButton";
 import { OrderListItem } from "./OrderListItem";
 import { totalPriceItems } from "../functions/secondaryFunctions";
 import { toLocaleStr } from "../functions/secondaryFunctions";
 import { Title, Total, TotalPrice } from "../Style/OrderStyle";
+import { device } from "../Style/ResponsiveStyle";
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -19,6 +20,10 @@ const OrderStyled = styled.section`
   background: #fff;
   box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.25);
   padding: 20px;
+
+  @media ${device.mobile} {
+    display: none;
+  }
 `;
 
 const OrderContent = styled.div`
@@ -32,10 +37,12 @@ const EmptyList = styled.p`
 `;
 
 export const Order = () => {
-  const { openItem: { setOpenItem } } = useContext(Context);
-  const { orders: { orders, setOrders } } = useContext(Context);
-  const { auth: { authentication, logIn }} = useContext(Context);
-  const { orderConfirm: { setOrderOpenConfirm } } = useContext(Context);
+  const {
+    orders: { orders, setOrders },
+    auth: { authentication, logIn },
+    orderConfirm: { setOrderOpenConfirm },
+    openOrderList: { openOrderList, changeState }
+  } = useContext(Context);
 
   const total = orders.reduce((acc, order) => acc + totalPriceItems(order), 0);
 
@@ -48,7 +55,7 @@ export const Order = () => {
   };
 
   return (
-    <OrderStyled>
+    <OrderStyled id="order-list">
       <Title>YOUR ORDER</Title>
       <OrderContent>
         {orders.length ? (
@@ -59,7 +66,6 @@ export const Order = () => {
                 key={index}
                 order={order}
                 index={index}
-                setOpenItem={setOpenItem}
               />
             ))}
           </OrderList>
