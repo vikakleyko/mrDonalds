@@ -14,6 +14,7 @@ import { useTitle } from "./Components/Hooks/useTitle";
 import { useAuth } from "./Components/Hooks/useAuth";
 import { useDB } from "./Components/Hooks/useDB";
 import { useOrderConfirm } from "./Components/Hooks/useOrderConfirm";
+import { useEmployee } from "./Components/Hooks/useEmployee";
 import { OrderConfirm } from "./Components/Order/OrderConfirm";
 import { Context } from "./Components/functions/context";
 import { Message } from "./Components/Message/Message";
@@ -36,6 +37,7 @@ function App() {
   const openItem = useOpenItem();
   const openOrderList = useOpenOrderList();
   const orders = useOrders();
+  const employee = useEmployee();
   const orderConfirm = useOrderConfirm();
   const database = firebase.database();
   useTitle(openItem.openItem);
@@ -49,6 +51,7 @@ function App() {
         orders,
         orderConfirm,
         openOrderList,
+        employee,
         database: database,
       }}
     >

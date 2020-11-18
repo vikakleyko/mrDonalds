@@ -4,6 +4,7 @@ import logoImg from "../../images/logo.svg";
 import signinImg from "../../images/sign.svg";
 import { Context } from "../functions/context";
 import { device } from "../Style/ResponsiveStyle";
+import { useEmployee } from "../Hooks/useEmployee";
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -81,13 +82,27 @@ const Figcaption = styled.figcaption`
 export const NavBar = () => {
   const {
     auth: { authentication, logIn, logOut },
+    employee: {employee}
   } = useContext(Context);
+
   return (
     <NavBarStyled>
       <Logo>
         <ImgLogo src={logoImg} alt="logo" />
         <H1>MrDonald's</H1>
       </Logo>
+      {employee && (
+        <figcaption>Employee of the month: {employee.name.first} </figcaption>
+      )}
+      
+      <a
+        href="https://mrdonalds-894a8.web.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        *learn more on website
+      </a>
+
       {authentication ? (
         <User>
           <Figure>
